@@ -1,5 +1,7 @@
 import express from 'express'
 import cors from 'cors'
+import Note from './models/note.js';
+import mongoose from 'mongoose';
 const app = express()
 
 
@@ -11,8 +13,20 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
+const url  = process.env.MONGODB_URI
+const run = async() => {
+  //connect to mongoDB
+  mongoose.connect(url)
+  console.log('connected')
+  console.log('note saved!')
+
+}
+
+run().catch(err => console.error('error connecting to MongoDB',err.message))
+
 app.use(cors())
 app.use(express.json())
+app.use(express.static('build'))
 app.use(requestLogger)
 let notes = [
     {
@@ -35,12 +49,11 @@ let notes = [
     }
   ]
 
-  app.get('/',(req,res)=>{
-    res.send('<h1>Hello World!</h1>')
-  })
-
   app.get('/api/notes', (req,res) => {
-    res.json(notes)
+    Note.find({}).then(notes => {
+      res.json(notes)
+
+    })
   })
 
   app.get('/api/notes/:id', (req,res) => {
