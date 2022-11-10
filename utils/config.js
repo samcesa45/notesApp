@@ -1,10 +1,12 @@
-import dotenv from 'dotenv'
+const dotenv = require('dotenv')
 dotenv.config()
 
 const PORT = process.env.PORT || 8000
-const MONGODB_URI = process.env.MONGODB_URI
+const MONGODB_URI = process.env.NODE_ENV === 'test' 
+? process.env.TEST_MONDODB_URI
+: process.env.MONGODB_URI
 
-export default {
+module.exports ={
   MONGODB_URI,
   PORT
 }

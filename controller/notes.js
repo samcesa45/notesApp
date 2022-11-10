@@ -1,13 +1,17 @@
-import express from 'express'
-import Note from '../models/note.js'
+const express = require('express')
+const  Note = require('../models/note.js')
 const notesRouter = express.Router()
 
 
-notesRouter.get('/', (req,res) => {
-  Note.find({}).then(notes => {
-    res.json(notes)
+notesRouter.get('/', async (_req,res,next) => {
+  try {
+    const notes = await Note.find({})
+    console.log(res.body);
+     res.status(200).json(notes)
+  } catch (error) {
+    next(error)
+  }
 
-  })
 })
 
 notesRouter.get('/:id', (req,res, next) => {
@@ -75,4 +79,4 @@ notesRouter.delete('/:id', (req,res,next) => {
 })
 
 
-export default notesRouter
+module.exports = notesRouter

@@ -1,25 +1,25 @@
-import express from 'express'
-import cors from 'cors'
-import mongoose from 'mongoose'
-import middleware from './utils/middleware.js'
-import notesRouter from './controller/notes.js'
-import logger from './utils/logger.js'
-import config from './utils/config.js'
+const express = require('express')
+const cors = require('cors')
+const mongoose = require('mongoose')
+const middleware =require('./utils/middleware.js')
+const notesRouter = require('./controller/notes.js')
+const logger = require('./utils/logger.js')
+const config = require('./utils/config.js')
 const app = express()
 
 
 
 
 const url  = config.MONGODB_URI
-const run = async() => {
-  //connect to mongoDB
-  mongoose.connect(url)
-  logger.info('connected')
-  logger.info('note saved!')
-
-}
-
-run().catch(err => logger.error('error connecting to MongoDB',err.message))
+const run=async() => {
+	//connect to mongoDB
+	await mongoose.connect(url)
+	logger.info('connected')
+	logger.info('note saved!')
+  
+  }
+  
+  run().catch(err => logger.error(err))
 
 app.use(cors())
 app.use(express.static('build'))
@@ -36,4 +36,4 @@ app.use(middleware.errorHandler)
 
 
 
-export default app
+module.exports = app

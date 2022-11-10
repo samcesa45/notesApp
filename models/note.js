@@ -1,6 +1,6 @@
-import dotenv from 'dotenv'
+const dotenv = require('dotenv')
 dotenv.config()
-import mongoose from 'mongoose'
+const mongoose =  require('mongoose')
 
 const noteSchema = new mongoose.Schema({
   content:{
@@ -25,4 +25,4 @@ noteSchema.set('toJSON',{
 const Note = mongoose.model('Note',noteSchema)
 
 
-export default Note
+module.exports = Note

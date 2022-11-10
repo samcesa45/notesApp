@@ -5,3 +5,6 @@ Content-Type: application/json
     "content":"The world needs lots of software developers",
     "important": false
 }
+
+###
+DELETE http://localhost:8000/api/notes/63688b006f148e2815504f91
