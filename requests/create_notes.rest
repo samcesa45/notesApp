@@ -1,9 +1,11 @@
 POST http://localhost:8000/api/notes
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2MzcwYTFhZjIzYzJiNzA0Yzg3OGY0NDUiLCJpYXQiOjE2Njg0NzQ4NzV9.tsXStjDAuw9CSwngMgXFi8yr3aTd1vF063wBWeDz4_o
 
 {
-    "content":"The world needs lots of software developers",
-    "important": false
+    "content":"Single page app uses token authentication",
+    "important":true
+    
 }
 
 ###
