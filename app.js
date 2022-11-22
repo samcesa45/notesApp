@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const middleware =require('./utils/middleware.js')
+const middleware =require('./middleware/error.js')
 const notesRouter = require('./controller/notes.js')
 const logger = require('./utils/logger.js')
 const config = require('./utils/config.js')
