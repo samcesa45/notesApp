@@ -1,19 +1,20 @@
+const config = require('./utils/config.js')
 const express = require('express')
+const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const middleware =require('./middleware/error.js')
 const notesRouter = require('./controller/notes.js')
 const logger = require('./utils/logger.js')
-const config = require('./utils/config.js')
 const usersRouter = require('./controller/users.js')
 const loginRouter = require('./controller/login.js')
-const app = express()
+const testingRouter = require('./controller/testing_router.js')
 
 
 
 
 const url  = config.MONGODB_URI
-const run=async() => {
+const run = async() => {
 	//connect to mongoDB
 	await mongoose.connect(url)
 	logger.info('connected')
@@ -30,9 +31,13 @@ app.use(middleware.requestLogger)
 
 
 
-app.use('/api/notes',notesRouter)
-app.use('/api/users',usersRouter)
 app.use('/api/login',loginRouter)
+app.use('/api/users',usersRouter)
+app.use('/api/notes',notesRouter)
+
+if(process.env.NODE_ENV === 'test' ){
+	app.use('/api/testing',testingRouter)
+}
 
 app.use(middleware.unknownEndPoint)
 app.use(middleware.errorHandler)
